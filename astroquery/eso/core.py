@@ -660,7 +660,7 @@ class EsoClass(QueryWithLogin):
             Retrieve from an existing request number rather than sending a new
             query, with the `request_id` from the URL in the email sent from
             the archive from the earlier request as in:
-            
+
                 https://dataportal.eso.org/rh/requests/[USERNAME]/[request_id]
 
         Returns
@@ -756,8 +756,8 @@ class EsoClass(QueryWithLogin):
                     data_download_form = self._request("GET", request_url,
                                                        cache=False)
 
-                    if  ('Request Handler - Error' in
-                              data_download_form.content.decode('utf-8')):
+                    _content = data_download_form.content.decode('utf-8')
+                    if  ('Request Handler - Error' in _content):
                         # Likely a problem with the request_url
                         msg = (f"The form at {request_url} returned an error."
                                 " See your recent requests at "
