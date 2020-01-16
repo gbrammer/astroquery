@@ -630,7 +630,7 @@ class EsoClass(QueryWithLogin):
         return resp
 
     def retrieve_data(self, datasets, continuation=False, destination=None,
-                      with_calib='none', request_all_objects=False, 
+                      with_calib='none', request_all_objects=False,
                       request_id=None):
         """
         Retrieve a list of datasets form the ESO archive.
@@ -658,11 +658,11 @@ class EsoClass(QueryWithLogin):
             default.
         request_id : str, int
             Retrieve from an existing request number rather than sending a new
-            query, with the `request_id` from the URL in the email sent from 
+            query, with the `request_id` from the URL in the email sent from
             the archive from the earlier request as in:
             
                 https://dataportal.eso.org/rh/requests/[USERNAME]/[request_id]
-                
+
         Returns
         -------
         files : list of strings or string
@@ -706,7 +706,7 @@ class EsoClass(QueryWithLogin):
         else:
             # Assume all valid if a request_id was provided
             valid_datasets = [(ds, True) for ds in datasets_to_download]
-            
+
         if not all(valid_datasets):
             invalid_datasets = [ds for ds, v in zip(datasets_to_download,
                                                     valid_datasets) if not v]
@@ -743,7 +743,7 @@ class EsoClass(QueryWithLogin):
                     if with_calib != 'none':
                         inputs['requestCommand'] = calib_options[with_calib]
 
-                    # TODO: There may be another screen for Not Authorized; 
+                    # TODO: There may be another screen for Not Authorized;
                     # that should be included too
                     # form name is "retrieve"; no id
                     data_download_form = self._activate_form(
@@ -755,7 +755,7 @@ class EsoClass(QueryWithLogin):
                     request_url += f'{self.USERNAME}/{request_id}'
                     data_download_form = self._request("GET", request_url,
                                                        cache=False)
-                
+
                     if  ('Request Handler - Error' in
                               data_download_form.content.decode('utf-8')):
                         # Likely a problem with the request_url
@@ -763,9 +763,9 @@ class EsoClass(QueryWithLogin):
                                 " See your recent requests at "
                                 "https://dataportal.eso.org/rh/requests/"
                                 f"{self.USERNAME}/recentRequests")
-                                
+
                         raise RemoteServiceError(msg)
-                                                                             
+
                 log.info("Staging form is at {0}"
                          .format(data_download_form.url))
                 root = BeautifulSoup(data_download_form.content, 'html5lib')
@@ -838,19 +838,19 @@ class EsoClass(QueryWithLogin):
             log.debug("Files:\n{}".format('\n'.join(fileLinks)))
             for i, fileLink in enumerate(fileLinks, 1):
                 fileId = fileLink.rsplit('/', maxsplit=1)[1]
-                
+
                 if request_id is not None:
                     # Since we fetched the script directly without sending
                     # a new request, check here that the file in the list
                     # is among those requested in the input list
                     if fileId.split('.fits')[0] not in datasets_to_download:
                         continue
-                    
+
                 log.info("Downloading file {}/{}: {}..."
                          .format(i, nfiles, fileId))
                 filename = self._request("GET", fileLink, save=True,
                                          continuation=True)
-                    
+
                 if filename.endswith(('.gz', '.7z', '.bz2', '.xz', '.Z')):
                     log.info("Unzipping file {0}...".format(fileId))
                     filename = system_tools.gunzip(filename)
