@@ -760,7 +760,7 @@ class EsoClass(QueryWithLogin):
                                                        cache=False)
 
                     _content = data_download_form.content.decode('utf-8')
-                    if  ('Request Handler - Error' in _content):
+                    if ('Request Handler - Error' in _content):
                         # Likely a problem with the request_url
                         msg = ("The form at {0} returned an error."
                                 " See your recent requests at "

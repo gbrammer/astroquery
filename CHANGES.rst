@@ -18,6 +18,12 @@ noirlab
 Service fixes and enhancements
 ------------------------------
 
+eso
+^^^
+
+- Add option to retrieve_data from an earlier archive query [#1614]
+
+
 casda
 ^^^^^
 
