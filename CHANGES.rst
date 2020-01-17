@@ -54,6 +54,8 @@ esasky
 eso
 ^^^
 
+- Add option to retrieve_data from an earlier archive query [#1614]
+
 exoplanet_orbit_database
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
