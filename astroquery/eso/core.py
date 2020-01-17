@@ -752,17 +752,18 @@ class EsoClass(QueryWithLogin):
                 else:
                     # Build URL by hand
                     request_url = 'https://dataportal.eso.org/rh/requests/'
-                    request_url += f'{self.USERNAME}/{request_id}'
+                    request_url += '{0}/{1}'.format(self.USERNAME, request_id)
                     data_download_form = self._request("GET", request_url,
                                                        cache=False)
 
                     _content = data_download_form.content.decode('utf-8')
                     if  ('Request Handler - Error' in _content):
                         # Likely a problem with the request_url
-                        msg = (f"The form at {request_url} returned an error."
+                        msg = ("The form at {0} returned an error."
                                 " See your recent requests at "
                                 "https://dataportal.eso.org/rh/requests/"
-                                f"{self.USERNAME}/recentRequests")
+                                "{1}/recentRequests"
+                                .format(request_url, self.USERNAME))
 
                         raise RemoteServiceError(msg)
 
