@@ -661,7 +661,7 @@ class EsoClass(QueryWithLogin):
             default.
         request_id : str, int
             Retrieve from an existing request number rather than sending a new
-            query, with the `request_id` from the URL in the email sent from
+            query, with the identifier from the URL in the email sent from
             the archive from the earlier request as in:
 
                 https://dataportal.eso.org/rh/requests/[USERNAME]/[request_id]
