@@ -630,7 +630,7 @@ class EsoClass(QueryWithLogin):
         return resp
 
     def retrieve_data(self, datasets, continuation=False, destination=None,
-                      with_calib='none', request_all_objects=False,
+                      with_calib='none', request_all_objects=False, unzip=True,
                       request_id=None):
         """
         Retrieve a list of datasets form the ESO archive.
@@ -656,13 +656,16 @@ class EsoClass(QueryWithLogin):
             downloaded ones, to be sure to retrieve all calibration files.
             This is useful when the download was interrupted. `False` by
             default.
+        unzip : bool
+            Unzip compressed files from the archive after download. `True` by
+            default.
         request_id : str, int
             Retrieve from an existing request number rather than sending a new
             query, with the `request_id` from the URL in the email sent from
             the archive from the earlier request as in:
 
                 https://dataportal.eso.org/rh/requests/[USERNAME]/[request_id]
-
+                
         Returns
         -------
         files : list of strings or string
@@ -852,7 +855,7 @@ class EsoClass(QueryWithLogin):
                 filename = self._request("GET", fileLink, save=True,
                                          continuation=True)
 
-                if filename.endswith(('.gz', '.7z', '.bz2', '.xz', '.Z')):
+                if filename.endswith(('.gz', '.7z', '.bz2', '.xz', '.Z')) and unzip:
                     log.info("Unzipping file {0}...".format(fileId))
                     filename = system_tools.gunzip(filename)
 

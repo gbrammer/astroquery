@@ -1,126 +1,141 @@
-0.4 (unreleased)
+0.4.1 (unreleased)
 ================
 
 New Tools and Services
 ----------------------
 
-casda
-^^^^^
+esa/xmm-newton
+^^^^^^^^^^^^^^
 
-- Module added to access data from the CSIRO ASKAP Science Data Archive (CASDA)  [#1505]
+- A new ESA archive service for XMM-Newton is now supported [#1557]
 
-dace
-^^^^
-- Added DACE Service. See https://dace.unige.ch/ for details. [#1370]
+noirlab
+^^^^^^^
 
+- Module added to access the NOIRLab (formally NOAO) archive. [#1638]
 
 
 Service fixes and enhancements
 ------------------------------
 
-alfalfa
-^^^^^^^
-
-alma
-^^^^
-
-astrometry_net
-^^^^^^^^^^^^^^
-
-atomic
-^^^^^^
-
-besancon
-^^^^^^^^
-
-cadc
-^^^^
-
 casda
 ^^^^^
 
-cds
-^^^
+- Add ability to stage and download ASKAP data. [#1706]
 
-cosmosim
-^^^^^^^^
-
-esa
-^^^
-
-esasky
-^^^^^^
-
-eso
+eso 
 ^^^
 
 - Add option to retrieve_data from an earlier archive query [#1614]
 
-exoplanet_orbit_database
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-fermi
-^^^^^
-
 gaia
 ^^^^
 
-gama
-^^^^
+- Allow for setting row limits in query submissions through class
+  attribute. [#1641]
 
 gemini
 ^^^^^^
 
-- initial support for the Gemini archive [#1596]
-
-heasarc
-^^^^^^^
-
-hitran
-^^^^^^
-
-ibe
-^^^
-
-imcce
-^^^^^
-
-irsa
-^^^^
-
-irsa_dust
-^^^^^^^^^
+- Allow for additional search terms to be sent to query_criteria and passed to
+  the raw web query against the Gemini Archive [#1659]
 
 jplhorizons
 ^^^^^^^^^^^
 
-jplsbdb
-^^^^^^^
+- Fix for changes in HORIZONS return results after their 2020 Feb 12
+  update. [#1650]
 
-jplspec
-^^^^^^^
 
-lamda
-^^^^^
+alma
+^^^^
 
-lcogt
-^^^^^
+- A new API was deployed in late February / early March 2020, requiring a
+  refactor.  The user-facing API should remain mostly the same, but some
+  service interruption may have occurred.  Note that the ``stage_data`` column
+  ``uid`` has been renamed ``mous_uid``, which is a technical correction, and
+  several columns have been added [#1644,#1665,#1683]
+- The contents of tarfiles can be shown with the ``expand_tarfiles`` keyword
+  to ``stage_data`` [#1683]
+- Bugfix: when accessing private data, auth credentials were not being passed
+  to the HEAD request used to acquire header data [#1698]
 
-magpis
+vizier
 ^^^^^^
+
+- It is now possible to specify constraints to ``query_region()``
+  with the ``column_filters`` keyword. [#1702]
+
 
 mast
 ^^^^
+
+cadc
+^^^^
+
+- Fixed authentication and enabled listing of async jobs. [#1712]
+
+nrao
+^^^^
+
+- Fixed passing ``project_code`` to the query [#1720]
+
+Infrastructure, Utility and Other Changes and Additions
+-------------------------------------------------------
+
+- Fixed a bug that would prevent the TOP statement from being properly added
+  to a TAP query containing valid '\n'. The bug was revealed by changes to
+  the gaia module, introduced in version 0.4. [#1680]
+
+- Added new ``json`` keyword to BaseQuery requests. [#1657]
+
+
+0.4 (2020-01-24)
+================
+
+New Tools and Services
+----------------------
+
+
+casda
+^^^^^
+
+- Module added to access data from the CSIRO ASKAP Science Data Archive.  [#1505]
+
+dace
+^^^^
+
+- Added DACE Service. See https://dace.unige.ch/ for details. [#1370]
+
+gemini
+^^^^^^
+
+- Module added to access the Gemini archive. [#1596]
+
+
+Service fixes and enhancements
+------------------------------
+
+gaia
+^^^^
+- Add optional 'columns' parameter to select specific columns. [#1548]
+
+imcce
+^^^^^
+
+- Fix Skybot return for unumbered asteroids. [#1598]
+
+jplhorizons
+^^^^^^^^^^^
+
+- Fix for changes in HORIZONS return results after their 2020 Jan 21 update. [#1620]
+
+mast
+^^^^
+
 - Add Kepler to missions with cloud support,
   Update ``get_cloud_uri`` so that if a file is not found it produces a warning
   and returns None rather than throwing an exception. [#1561]
-
-
-mpc
-^^^
-
-nasa_ads
-^^^^^^^^
 
 nasa_exoplanet_archive
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -128,60 +143,12 @@ nasa_exoplanet_archive
   Added two functions ``query_planet`` (to query for a specific exoplanet), and
   ``query_star`` (to query for all exoplanets under a specific stellar system) [#1606]
 
-ned
-^^^
 
-nist
-^^^^
-
-nrao
-^^^^
-
-nvas
-^^^^
-
-oac
-^^^
-
-ogle
-^^^^
-
-open_exoplanet_catalogue
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-sdss
-^^^^
-
-sha
-^^^
-
-simbad
-^^^^^^
-
-skyview
-^^^^^^^
-
-solarsystem
-^^^^^^^^^^^
 
 splatalogue
 ^^^^^^^^^^^
 
-- Added new 'only_astronomically_observed' option [#1600]
-
-ukidss
-^^^^^^
-
-utils
-^^^^^
-
-- Added timer functions. [#1508]
-
-vamdc
-^^^^^
-
-vizier
-^^^^^^
+- Added new 'only_astronomically_observed' option. [#1600]
 
 vo_conesearch
 ^^^^^^^^^^^^^
@@ -198,18 +165,14 @@ vo_conesearch
 
 - Result is now returned as ``astropy.table.Table`` by default. [#1528]
 
-vsa
-^^^
-
-wfau
-^^^^
-
-xmatch
-^^^^^^
-
 
 Infrastructure, Utility and Other Changes and Additions
 -------------------------------------------------------
+
+utils
+^^^^^
+
+- Added timer functions. [#1508]
 
 
 0.3.10 (2019-09-19)
@@ -277,7 +240,7 @@ cds
 
 - Apply MOCPy v0.5.* API changes. [#1343]
 
-eso
+c
 ^^^
 
 - Try to re-authenticate when logged out from the ESO server. [#1315]
