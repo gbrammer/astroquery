@@ -630,7 +630,7 @@ class EsoClass(QueryWithLogin):
         return resp
 
     def retrieve_data(self, datasets, continuation=False, destination=None,
-                      with_calib='none', request_all_objects=False, 
+                      with_calib='none', request_all_objects=False,
                       unzip=True, request_id=None):
         """
         Retrieve a list of datasets form the ESO archive.
@@ -665,7 +665,7 @@ class EsoClass(QueryWithLogin):
             the archive from the earlier request as in:
 
                 https://dataportal.eso.org/rh/requests/[USERNAME]/[request_id]
-                
+
         Returns
         -------
         files : list of strings or string
