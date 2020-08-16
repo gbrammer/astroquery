@@ -18,6 +18,12 @@ noirlab
 Service fixes and enhancements
 ------------------------------
 
+eso
+^^^
+
+- Add option to retrieve_data from an earlier archive query [#1614]
+
+
 casda
 ^^^^^
 
@@ -82,6 +88,8 @@ nrao
 
 Infrastructure, Utility and Other Changes and Additions
 -------------------------------------------------------
+
+- Versions of astropy <3.1 are no longer supported. [#1649]
 
 - Fixed a bug that would prevent the TOP statement from being properly added
   to a TAP query containing valid '\n'. The bug was revealed by changes to

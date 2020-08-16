@@ -856,6 +856,7 @@ class EsoClass(QueryWithLogin):
                                          continuation=True)
 
                 if filename.endswith(('.gz', '.7z', '.bz2', '.xz', '.Z')) and unzip:
+
                     log.info("Unzipping file {0}...".format(fileId))
                     filename = system_tools.gunzip(filename)
 
